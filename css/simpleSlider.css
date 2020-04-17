@@ -1,0 +1,61 @@
+/*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ jquery.mb.components
+
+ file: simpleSlider.css
+ last modified: 4/17/15 7:55 PM
+ Version:  {{ version }}
+ Build:  {{ buildnum }}
+
+ Open Lab s.r.l., Florence - Italy
+ email:  matteo@open-lab.com
+ blog: 	http://pupunzi.open-lab.com
+ site: 	http://pupunzi.com
+ 	http://open-lab.com
+
+ Licences: MIT, GPL
+ http://www.opensource.org/licenses/mit-license.php
+ http://www.gnu.org/licenses/gpl.html
+
+ Copyright (c) 2001-2018. Matteo Bicocchi (Pupunzi)
+ :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
+/*******************************************************************************
+ * 
+ * jQuery.mb.components: simpleSlider
+ * version: 1.0
+ * Author: pupunzi
+ * Creation date: 17/04/15
+ * Licences: MIT, GPL
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.gnu.org/licenses/gpl.html
+ *
+ ******************************************************************************/
+
+@charset "UTF-8";
+
+.simpleSlider {
+  position: relative;
+  width: 220px;
+  height: 20px;
+  border: 1px solid #000;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.level {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-color: #000;
+  box-sizing: border-box;
+}
+
+.level.horizontal {
+  height: 100%;
+  width: 0;
+}
+
+.level.vertical {
+  height: auto;
+  width: 100%;
+}
