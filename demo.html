@@ -34,13 +34,13 @@
     <script>
 
         $(function () {
-            var red, green, blue, alpha;
-            var $slider = $(".slider").not("#alpha").simpleSlider({
+            let red, green, blue, alpha;
+            let $slider = $(".slider").not("#alpha").simpleSlider({
                 initialval: function () {return Math.random() * 255},
                 maxVal     : 255,
                 callback  : function (el) {
 
-                    var $el = $(el);
+                    let $el = $(el);
                     if ($el.is("#red")) {
                         red = +(el.value).toFixed(0);
                         $(".label", $el).html("R: " + red);
@@ -59,11 +59,11 @@
                 }
             });
 
-            var $alpha = $("#alpha").simpleSlider({
+            let $alpha = $("#alpha").simpleSlider({
                 initialval: function () {return Math.random()},
                 maxVal     : 1,
                 callback  : function (el) {
-                    var $el = $(el);
+                    let $el = $(el);
                     alpha = ((el.value).toFixed(2));
                     $(".label", $el).html("A: " + alpha);
 
