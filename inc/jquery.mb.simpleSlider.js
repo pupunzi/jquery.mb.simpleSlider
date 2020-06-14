@@ -77,10 +77,14 @@
 						else
 							$el.css({cursor: "row-resize"});
 
+						el.lastVal = el.val;
+
 						if (!jQuery.browser.mobile) {
 							e.preventDefault();
 							e.stopPropagation();
 						}
+
+
 
 					});
 
@@ -152,11 +156,15 @@
 				return Math.floor((val * 100) / tot);
 			}
 
-			if ((el.opt.orientation === "h" && (el.x >= $el.outerWidth() || el.x <= 0)) || (el.opt.orientation !== "h" && (el.y >= $el.outerHeight() || el.y <= 0)))
+			if (el.lastVal === el.value && ((el.opt.orientation === "h" && (el.x >= $el.outerWidth() || el.x <= 0)) || (el.opt.orientation !== "h" && (el.y >= $el.outerHeight() || el.y <= 0))))
 				return;
+
+			console.debug(el.value)
 
 			if (typeof el.opt.callback === "function")
 				el.opt.callback(el);
+
+			el.lastVal = el.value;
 		}
 	};
 

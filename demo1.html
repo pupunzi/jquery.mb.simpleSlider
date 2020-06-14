@@ -28,7 +28,7 @@
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.js"></script>
   <script src="inc/jquery.mb.browser.min.js"></script>
-  <script src="inc/jquery.mb.simpleSlider.min.js"></script>
+  <script src="inc/jquery.mb.simpleSlider.js"></script>
   <link href="css/simpleSlider.css" media="all" rel="stylesheet" type="text/css">
 
   <script>
@@ -36,7 +36,6 @@
 		$(function () {
 
 			var $slider = $(".slider").simpleSlider({
-//                initialval: 0,
 				scale   : 100,
 				callback: function (el) {
 					$("#val").html("alpha: " + (+(el.value / 100).toFixed(1)) + " %");
