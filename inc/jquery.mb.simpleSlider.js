@@ -19,54 +19,56 @@
  Copyright (c) 2001-2018. Matteo Bicocchi (Pupunzi)
  :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
 
-(function (jQuery) {
+(function ($) {
 
-	jQuery.simpleSlider = {
+	$.simpleSlider = {
 		defaults: {
 			initialval : 0,
-			maxVal     : 100,
+			maxval     : 100,
 			orientation: "h",
 			readonly   : false,
 			callback   : false
 		},
 
 		events: {
-			start: jQuery.browser.mobile ? "touchstart" : "mousedown",
-			end  : jQuery.browser.mobile ? "touchend" : "mouseup",
-			move : jQuery.browser.mobile ? "touchmove" : "mousemove"
+			start: $.browser.mobile ? "touchstart" : "mousedown",
+			end  : $.browser.mobile ? "touchend" : "mouseup",
+			move : $.browser.mobile ? "touchmove" : "mousemove"
 		},
 
 		init: function (opt) {
 
 			return this.each(function () {
 				var el = this;
-				var $el = jQuery(el);
+				var $el = $(el);
 
 				$el.addClass("simpleSlider");
 
 				el.opt = {};
 
-				jQuery.extend(el.opt, jQuery.simpleSlider.defaults, opt);
-				jQuery.extend(el.opt, $el.data());
+				$.extend(el.opt, $.simpleSlider.defaults, opt);
+				$.extend(el.opt, $el.data());
+
+				console.debug($el.data());
 
 				var levelClass = el.opt.orientation == "h" ? "horizontal" : "vertical";
-				var level = jQuery("<div/>").addClass("level").addClass(levelClass);
+				var level = $("<div/>").addClass("level").addClass(levelClass);
 
 				$el.prepend(level);
 				el.level = level;
 
 				$el.css({cursor: "default"});
 
-				if (el.opt.maxVal == "auto")
-					el.opt.maxVal = jQuery(el).outerWidth();
+				if (el.opt.maxval == "auto")
+					el.opt.maxval = $(el).outerWidth();
 
 				$el.updateSliderVal();
 
 				if (!el.opt.readonly) {
 
-					$el.on(jQuery.simpleSlider.events.start, function (e) {
+					$el.on($.simpleSlider.events.start, function (e) {
 
-						if (jQuery.browser.mobile)
+						if ($.browser.mobile)
 							e = e.changedTouches[0];
 
 						el.canSlide = true;
@@ -79,38 +81,32 @@
 
 						el.lastVal = el.val;
 
-						if (!jQuery.browser.mobile) {
+						if (!$.browser.mobile) {
 							e.preventDefault();
 							e.stopPropagation();
 						}
-
-
-
 					});
 
-					jQuery(document).on(jQuery.simpleSlider.events.move, function (e) {
+					$(document).on($.simpleSlider.events.move, function (e) {
 
-						if (jQuery.browser.mobile)
+						if ($.browser.mobile)
 							e = e.changedTouches[0];
-
 
 						if (!el.canSlide)
 							return;
 
-						jQuery(document).css({cursor: "default"});
+						$(document).css({cursor: "default"});
 						$el.updateSliderVal(e);
 
-						if (!jQuery.browser.mobile) {
+						if (!$.browser.mobile) {
 							e.preventDefault();
 							e.stopPropagation();
 						}
 
-					}).on(jQuery.simpleSlider.events.end, function () {
-						jQuery(document).css({cursor: "auto"});
+					}).on($.simpleSlider.events.end, function () {
+						$(document).css({cursor: "auto"});
 						el.canSlide = false;
-
 						$el.css({cursor: "auto"})
-
 					});
 
 				}
@@ -127,22 +123,22 @@
 
 			el.opt.initialval = typeof el.opt.initialval == "number" ? el.opt.initialval : el.opt.initialval(el);
 
-			var elWidth = jQuery(el).outerWidth();
-			var elHeight = jQuery(el).outerHeight();
+			var elWidth = $(el).outerWidth();
+			var elHeight = $(el).outerHeight();
 
-			el.x = typeof e == "object" ? (e.clientX + document.body.scrollLeft) - $el.offset().left : typeof e == "number" ? (e * elWidth) / el.opt.maxVal : (el.opt.initialval * elWidth) / el.opt.maxVal;
-			el.y = typeof e == "object" ? (e.clientY + document.body.scrollTop) - $el.offset().top : typeof e == "number" ? ((el.opt.maxVal - el.opt.initialval - e) * elHeight) / el.opt.maxVal : (el.opt.initialval * elHeight) / el.opt.maxVal;
+			el.x = typeof e == "object" ? (e.clientX + document.body.scrollLeft) - $el.offset().left : typeof e == "number" ? (e * elWidth) / el.opt.maxval : (el.opt.initialval * elWidth) / el.opt.maxval;
+			el.y = typeof e == "object" ? (e.clientY + document.body.scrollTop) - $el.offset().top : typeof e == "number" ? ((el.opt.maxval - el.opt.initialval - e) * elHeight) / el.opt.maxval : (el.opt.initialval * elHeight) / el.opt.maxval;
 			el.y = $el.outerHeight() - el.y;
 
-			el.scaleX = (el.x * el.opt.maxVal) / elWidth;
-			el.scaleY = (el.y * el.opt.maxVal) / elHeight;
+			el.scaleX = (el.x * el.opt.maxval) / elWidth;
+			el.scaleY = (el.y * el.opt.maxval) / elHeight;
 
-			el.outOfRangeX = el.scaleX > el.opt.maxVal ? (el.scaleX - el.opt.maxVal) : el.scaleX < 0 ? el.scaleX : 0;
-			el.outOfRangeY = el.scaleY > el.opt.maxVal ? (el.scaleY - el.opt.maxVal) : el.scaleY < 0 ? el.scaleY : 0;
+			el.outOfRangeX = el.scaleX > el.opt.maxval ? (el.scaleX - el.opt.maxval) : el.scaleX < 0 ? el.scaleX : 0;
+			el.outOfRangeY = el.scaleY > el.opt.maxval ? (el.scaleY - el.opt.maxval) : el.scaleY < 0 ? el.scaleY : 0;
 			el.outOfRange = el.opt.orientation == "h" ? el.outOfRangeX : el.outOfRangeY;
 
 			if (typeof e != "undefined")
-				el.value = el.opt.orientation == "h" ? (el.x >= $el.outerWidth() ? el.opt.maxVal : el.x <= 0 ? 0 : el.scaleX) : (el.y >= $el.outerHeight() ? el.opt.maxVal : el.y <= 0 ? 0 : el.scaleY);
+				el.value = el.opt.orientation == "h" ? (el.x >= $el.outerWidth() ? el.opt.maxval : el.x <= 0 ? 0 : el.scaleX) : (el.y >= $el.outerHeight() ? el.opt.maxval : el.y <= 0 ? 0 : el.scaleY);
 			else
 				el.value = el.opt.orientation == "h" ? el.scaleX : el.scaleY;
 
@@ -159,8 +155,6 @@
 			if (el.lastVal === el.value && ((el.opt.orientation === "h" && (el.x >= $el.outerWidth() || el.x <= 0)) || (el.opt.orientation !== "h" && (el.y >= $el.outerHeight() || el.y <= 0))))
 				return;
 
-			console.debug(el.value)
-
 			if (typeof el.opt.callback === "function")
 				el.opt.callback(el);
 
@@ -168,7 +162,7 @@
 		}
 	};
 
-	jQuery.fn.simpleSlider = jQuery.simpleSlider.init;
-	jQuery.fn.updateSliderVal = jQuery.simpleSlider.updateSliderVal;
+	$.fn.simpleSlider = $.simpleSlider.init;
+	$.fn.updateSliderVal = $.simpleSlider.updateSliderVal;
 
 })(jQuery);

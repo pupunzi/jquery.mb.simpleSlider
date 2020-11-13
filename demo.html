@@ -28,7 +28,7 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.js"></script>
     <script src="inc/jquery.mb.browser.min.js"></script>
-    <script src="inc/jquery.mb.simpleSlider.js"></script>
+    <script src="inc/jquery.mb.simpleSlider.min.js"></script>
     <link href="css/simpleSlider.css" media="all" rel="stylesheet" type="text/css">
 
     <script>
@@ -37,7 +37,7 @@
             let red, green, blue, alpha;
             let $slider = $(".slider").not("#alpha").simpleSlider({
                 initialval: function () {return Math.random() * 255},
-                maxVal     : 255,
+                maxval     : 255,
                 callback  : function (el) {
 
                     let $el = $(el);
@@ -61,7 +61,7 @@
 
             let $alpha = $("#alpha").simpleSlider({
                 initialval: function () {return Math.random()},
-                maxVal     : 1,
+                maxval     : 1,
                 callback  : function (el) {
                     let $el = $(el);
                     alpha = ((el.value).toFixed(2));

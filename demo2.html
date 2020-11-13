@@ -37,7 +37,7 @@
 
             var $slider = $(".slider").simpleSlider({
                 initialval : 1,
-                scale      : 100,
+                maxval      : 100,
                 orientation: "v",
                 callback   : function (el) {
                     $("#val").html("alpha: " + (+(el.value / 100).toFixed(1)) + " %");
@@ -50,7 +50,7 @@
             var prog = setInterval(function () {
                 ++slider.prog;
                 $slider.updateSliderVal(slider.prog);
-                if (slider.prog == slider.opt.scale)
+                if (slider.prog == slider.opt.maxval)
                     clearInterval(prog);
             }, 100)
 

@@ -36,7 +36,7 @@
 		$(function () {
 
 			var $slider = $(".slider").simpleSlider({
-				scale   : 100,
+				maxval   : 100,
 				callback: function (el) {
 					$("#val").html("alpha: " + (+(el.value / 100).toFixed(1)) + " %");
 					let rnd = function () { return Math.abs(Math.random() * 255)};
