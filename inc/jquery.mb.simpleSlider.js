@@ -49,9 +49,9 @@
 				$.extend(el.opt, $.simpleSlider.defaults, opt);
 				$.extend(el.opt, $el.data());
 
-				console.debug($el.data());
+				//console.debug($el.data());
 
-				var levelClass = el.opt.orientation == "h" ? "horizontal" : "vertical";
+				var levelClass = el.opt.orientation === "h" ? "horizontal" : "vertical";
 				var level = $("<div/>").addClass("level").addClass(levelClass);
 
 				$el.prepend(level);
@@ -74,7 +74,7 @@
 						el.canSlide = true;
 						$el.updateSliderVal(e);
 
-						if (el.opt.orientation == "h")
+						if (el.opt.orientation === "h")
 							$el.css({cursor: "col-resize"});
 						else
 							$el.css({cursor: "row-resize"});
@@ -135,14 +135,14 @@
 
 			el.outOfRangeX = el.scaleX > el.opt.maxval ? (el.scaleX - el.opt.maxval) : el.scaleX < 0 ? el.scaleX : 0;
 			el.outOfRangeY = el.scaleY > el.opt.maxval ? (el.scaleY - el.opt.maxval) : el.scaleY < 0 ? el.scaleY : 0;
-			el.outOfRange = el.opt.orientation == "h" ? el.outOfRangeX : el.outOfRangeY;
+			el.outOfRange = el.opt.orientation === "h" ? el.outOfRangeX : el.outOfRangeY;
 
 			if (typeof e != "undefined")
-				el.value = el.opt.orientation == "h" ? (el.x >= $el.outerWidth() ? el.opt.maxval : el.x <= 0 ? 0 : el.scaleX) : (el.y >= $el.outerHeight() ? el.opt.maxval : el.y <= 0 ? 0 : el.scaleY);
+				el.value = el.opt.orientation === "h" ? (el.x >= $el.outerWidth() ? el.opt.maxval : el.x <= 0 ? 0 : el.scaleX) : (el.y >= $el.outerHeight() ? el.opt.maxval : el.y <= 0 ? 0 : el.scaleY);
 			else
-				el.value = el.opt.orientation == "h" ? el.scaleX : el.scaleY;
+				el.value = el.opt.orientation === "h" ? el.scaleX : el.scaleY;
 
-			if (el.opt.orientation == "h")
+			if (el.opt.orientation === "h")
 				el.level.width(getPercent(el.x, elWidth) + "%");
 			else {
 				el.level.height(getPercent(el.y, elHeight));
